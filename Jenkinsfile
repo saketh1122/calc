@@ -4,15 +4,31 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/yourusername/devops-calculator.git'
+                git branch: 'main', url: 'https://github.com/saketh1122/calc.git'
             }
         }
 
-        stage('Test') {
+        stage('Run Tests') {
             steps {
                 sh 'python3 -m unittest test_calculator.py'
             }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build('saketh479/calculator:latest')
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline Succeeded!'
+        }
+        failure {
+            echo 'Pipeline Failed!'
         }
     }
 }
