@@ -21,7 +21,20 @@ pipeline {
                 }
             }
         }
+stage('Push to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
+                        def app = docker.image('saketh479/calc:latest')
+                        app.push()
+                    }
+                }
+            }
+        }
+
     }
+    
+
 
     post {
         success {
