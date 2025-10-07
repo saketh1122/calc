@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('saketh479/calculator:latest')
+                    docker.build('saketh479/calc:latest')
                 }
             }
         }
