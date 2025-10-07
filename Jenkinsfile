@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('saketh479/calc:latest')
+                    docker.build('saketh479/calculator:latest')
                 }
             }
         }
@@ -25,7 +25,7 @@ stage('Push to Docker Hub') {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
-                        def app = docker.image('saketh479/calc:latest')
+                        def app = docker.image('saketh479/calculator:latest')
                         app.push()
                     }
                 }
