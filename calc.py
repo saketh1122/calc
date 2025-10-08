@@ -17,4 +17,4 @@ if __name__ == "__main__":
     print("sqrt(16) =", sqrt_func(16))
     print("factorial(5) =", fact_func(5))
     print("ln(2.71828) =", ln_func(2.71828))
-    print("2^3 =", power_func(2, 3))
+    print("4^3 =", power_func(4, 3))
