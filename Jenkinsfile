@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE = 'saketh479/calculator:latest'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -17,39 +21,39 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('saketh479/calculator:latest')
+                    docker.build("${DOCKER_IMAGE}")
                 }
             }
         }
-stage('Push to Docker Hub') {
+
+        stage('Push to Docker Hub') {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
-                        def app = docker.image('saketh479/calculator:latest')
+                        def app = docker.image("${DOCKER_IMAGE}")
                         app.push()
                     }
                 }
             }
         }
-stage('Deploy using Ansible') {
+
+        stage('Deploy using Ansible') {
             steps {
+                
                 sh '''
                     ansible-playbook -i hosts.ini deploy.yml
                 '''
             }
         }
-
-
     }
-    
-
 
     post {
         success {
-            echo 'Pipeline Succeeded!'
+            echo '✅ Pipeline Succeeded!'
         }
         failure {
-            echo 'Pipeline Failed!'
+            echo '❌ Pipeline Failed!'
         }
     }
 }
+
