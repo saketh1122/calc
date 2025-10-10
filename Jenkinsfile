@@ -41,7 +41,7 @@ pipeline {
             steps {
                 
                 sh '''
-                    ansible-playbook -i hosts.ini deploy.yml
+                    /home/saketh/.local/bin/ansible-playbook -i /home/saketh/calc/hosts.ini /home/saketh/calc/deploy.yml
                 '''
             }
         }
