@@ -31,6 +31,14 @@ stage('Push to Docker Hub') {
                 }
             }
         }
+stage('Deploy using Ansible') {
+            steps {
+                sh '''
+                    ansible-playbook -i hosts.ini deploy.yml
+                '''
+            }
+        }
+
 
     }
     
