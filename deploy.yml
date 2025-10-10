@@ -1,0 +1,26 @@
+---
+- name: Deploy Calculator Docker Container
+  hosts: local
+  tasks:
+
+    - name: Pull latest Docker image from Docker Hub
+      community.docker.docker_image:
+        name: saketh479/calculator
+        tag: latest
+        source: pull
+
+    - name: Stop existing container if running
+      community.docker.docker_container:
+        name: calculator
+        state: absent
+        force_kill: yes
+
+    - name: Run CLI Docker container and keep it alive
+      community.docker.docker_container:
+        name: calculator
+        image: saketh479/calculator:latest
+        state: started
+        restart_policy: always
+        command: tail -f /dev/null
+
+
