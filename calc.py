@@ -1,5 +1,5 @@
 import math
-#adding commen 
+
 def sqrt_func(x):
     return math.sqrt(x)
 
